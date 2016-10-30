@@ -1,24 +1,34 @@
 ﻿using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
 using RAIN.Action;
 using RAIN.Core;
 
+/// <summary>
+/// 
+/// </summary>
 [RAINAction]
-public class ActionTemplate_CS : RAINAction
-{
-    public override void Start(RAIN.Core.AI ai)
-    {
+public class ActionTemplate_CS : RAINAction {
+
+    /// <summary>
+    /// Initializes the AI.
+    /// </summary>
+    /// <param name="ai">The AI to initialize.</param>
+    public override void Start(AI ai) {
         base.Start(ai);
     }
 
-    public override ActionResult Execute(RAIN.Core.AI ai)
-    {
+    /// <summary>
+    /// Updates the AI every frame.
+    /// </summary>
+    /// <param name="ai">The AI to update.</param>
+    public override ActionResult Execute(AI ai) {
         return ActionResult.SUCCESS;
     }
 
-    public override void Stop(RAIN.Core.AI ai)
-    {
+    /// <summary>
+    /// Stops the action for the AI.
+    /// </summary>
+    /// <param name="ai">The AI to stop the action for.</param>
+    public override void Stop(AI ai) {
         base.Stop(ai);
     }
 }
