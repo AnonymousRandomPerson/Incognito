@@ -10,7 +10,7 @@ public class CameraFollowAbhishek : MonoBehaviour {
     float distance = 6f;
     // the height we want the camera to be above the target
     float height = 3f;
-    // How much we 
+    // The speed at which the camera should follow the player
     float heightDamping = 2.0f;
     float rotationDamping = 3.0f;
 
