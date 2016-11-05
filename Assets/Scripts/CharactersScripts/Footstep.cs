@@ -27,14 +27,11 @@ public class Footstep : MonoBehaviour {
 
 
 
-        if (color != null)
-        {
             ps.startColor = color;
             //if (ps.isPlaying)
             //{
             //    ps.Stop();
             //}
             ps.Play();
-        }
     }
 }
