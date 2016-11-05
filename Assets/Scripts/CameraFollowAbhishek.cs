@@ -5,22 +5,13 @@ public class CameraFollowAbhishek : MonoBehaviour {
 
 
     public GameObject player;       //Public variable to store a reference to the player game object
-    bool active;
     // The distance in the x-z plane to the target
     float distance = 6f;
     // the height we want the camera to be above the target
     float height = 3f;
     // The speed at which the camera should follow the player
     float heightDamping = 2.0f;
-    float rotationDamping = 3.0f;
-
-    private Vector3 offset;        
-
-    void Start()
-    {
-        //Calculate and store the offset value by getting the distance between the player's position and camera's position.
-        offset = transform.position - player.transform.position;
-    }
+    float rotationDamping = 3.0f;  
 
     void LateUpdate()
     {
@@ -45,6 +36,5 @@ public class CameraFollowAbhishek : MonoBehaviour {
             transform.position = new Vector3(transform.position.x, currentHeight, transform.position.z);
             // Always look at the target
             transform.LookAt(target);
-            active = true;
     }
 }
