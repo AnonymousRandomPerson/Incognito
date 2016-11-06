@@ -13,7 +13,9 @@ public class AlertGuards : RAINAction {
     /// </summary>
     /// <param name="ai">The AI to update.</param>
     public override ActionResult Execute(AI ai) {
-        ai.Body.GetComponent<AudioSource>().Play();
+
+        GuardSoundManager sound = ai.Body.GetComponent<GuardSoundManager>();
+        sound.playPersue();
         GameObject player = (GameObject)ai.WorkingMemory.GetItem(SquadManager.PLAYER);
         SquadManager.instance.AlertAllGuards(player);
         return ActionResult.SUCCESS;
