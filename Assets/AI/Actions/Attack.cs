@@ -20,8 +20,6 @@ public class Attack : RAINAction
 
 
     bool started = false;
-    bool calledIn = false;
-    float timeSinceStart = 0;
 
     float CALL_IN_DURATION = 3.5f;
     /// <summary>
@@ -31,29 +29,21 @@ public class Attack : RAINAction
     public override ActionResult Execute(AI ai)
     {
         Debug.Log("Attack");
-        GuardSoundManager sound = ai.Body.GetComponent<GuardSoundManager>();
         GameObject p = (GameObject)ai.WorkingMemory.GetItem(SquadManager.PLAYER);
 
-        if (!started && !(bool) ai.WorkingMemory.GetItem(SquadManager.ALARMED))
-        {
-            sound.playCallin();
-            started = true;
-        }
 
-        if (timeSinceStart > CALL_IN_DURATION && !calledIn)
+        if (p == null)
         {
-            //SquadManager.instance.AlertAllGuards(p);
-            Debug.Log("calling in guards!");
-            calledIn = true;
+            Debug.Log("attack fail");
+            return ActionResult.FAILURE;
         }
-
 
         attackPlayer(ai, p);
         
 
-        timeSinceStart += Time.deltaTime;
         attackTimer += Time.deltaTime;
-        return ActionResult.SUCCESS;
+
+        return ActionResult.RUNNING;
     }
 
     void attackPlayer(AI ai, GameObject player)

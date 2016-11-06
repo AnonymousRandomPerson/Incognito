@@ -31,8 +31,8 @@ public class LookAround : RAINAction {
         ai.Body.GetComponent<RigidbodyController>().setTurn(ROTATE_SPEED);
         prevRotate += ROTATE_SPEED * 4;
         if (prevRotate >= 360) {
-            ai.WorkingMemory.SetItem(SquadManager.ALARMED, false);
-            ai.WorkingMemory.SetItem(SquadManager.LAST_SEEN_PLAYER, Vector3.zero);
+            //ai.WorkingMemory.SetItem(SquadManager.ALARMED, false);
+            //ai.WorkingMemory.SetItem(SquadManager.LAST_SEEN_PLAYER, Vector3.zero);
             return ActionResult.SUCCESS;
         } else {
             ai.WorkingMemory.SetItem(ROTATE_AMOUNT, prevRotate);

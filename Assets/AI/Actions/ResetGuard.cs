@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using RAIN.Action;
 using RAIN.Core;
 
@@ -6,7 +6,8 @@ using RAIN.Core;
 /// Alerts all guards about the player's presence.
 /// </summary>
 [RAINAction]
-public class AlertGuards : RAINAction {
+public class ResetGuard : RAINAction
+{
 
     /// <summary>
     /// Updates the AI every frame.
@@ -14,10 +15,8 @@ public class AlertGuards : RAINAction {
     /// <param name="ai">The AI to update.</param>
     public override ActionResult Execute(AI ai)
     {
-        Debug.Log("alerting!");
-        ai.Body.GetComponent<AudioSource>().Play();
-        GameObject player = (GameObject)ai.WorkingMemory.GetItem(SquadManager.PLAYER);
-        SquadManager.instance.AlertAllGuards(player);
+        ai.WorkingMemory.SetItem(SquadManager.ALARMED, false);
+        ai.WorkingMemory.SetItem(SquadManager.LAST_SEEN_PLAYER, Vector3.zero);
         return ActionResult.SUCCESS;
     }
 }
