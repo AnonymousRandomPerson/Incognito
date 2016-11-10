@@ -17,7 +17,10 @@ public class Bullet : MonoBehaviour
         Destroy(gameObject, 6f);
     }
 
-    private float damage = 0;
+    /// <summary> The amount of damage dealt by the bullet. </summary>
+    [SerializeField]
+    [Tooltip("The amount of damage dealt by the bullet.")]
+    private float damage;
 
     void FixedUpdate()
     {
@@ -25,18 +28,17 @@ public class Bullet : MonoBehaviour
             t.rotation = Quaternion.LookRotation(r.velocity);
     }
 
+    /// <summary>
+    /// Damages the player and destroys the bullet upon contact.
+    /// </summary>
+    /// <param name="collisionInfo">The collision that caused this event.</param>
     void OnCollisionStay(Collision collisionInfo)
     {
-
+        Health health = collisionInfo.collider.GetComponent<Health>();
+        if (health != null) {
+            health.Damage(damage);
+        }
         Destroy(gameObject);
-
-        //TODO: if hit guard or player, they take damage.
-        //GameObject hitObject = collisionInfo.gameObject;
-        //      if (hitObject.tag == "Player")
-        //    {
-        //      UserController u = hitObject.GetComponent<UserController>();
-        //      u.takeDamage(damage);
-        //    }
     }
 
     public void setDamage(float damage)

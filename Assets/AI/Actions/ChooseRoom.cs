@@ -13,18 +13,8 @@ public class ChooseRoom : RAINAction {
     /// <summary> Keeps track of which waypoints are rooms. </summary>
     private static Dictionary<int, RoomPoints> roomPoints;
 
-    /// <summary>
-    /// Finds the room points in the scene.
-    /// </summary>
-    public ChooseRoom() : base() {
-        if (roomPoints == null) {
-            RoomPoints[] roomPointObjects = GameObject.FindObjectsOfType<RoomPoints>();
-            roomPoints = new Dictionary<int, RoomPoints>(roomPointObjects.Length);
-            foreach (RoomPoints roomPointObject in roomPointObjects) {
-                roomPoints.Add(roomPointObject.guardNumber, roomPointObject);
-            }
-        }
-    }
+    /// <summary> The index of the guard to use when matching room points. </summary>
+    private const string GUARD_NUMBER = "guardNumber";
 
     /// <summary>
     /// Initializes the AI.
@@ -32,6 +22,13 @@ public class ChooseRoom : RAINAction {
     /// <param name="ai">The AI to initialize.</param>
     public override void Start(AI ai) {
         base.Start(ai);
+        if (roomPoints == null || roomPoints[0] == null) {
+            RoomPoints[] roomPointObjects = GameObject.FindObjectsOfType<RoomPoints>();
+            roomPoints = new Dictionary<int, RoomPoints>(roomPointObjects.Length);
+            foreach (RoomPoints roomPointObject in roomPointObjects) {
+                roomPoints.Add(roomPointObject.guardNumber, roomPointObject);
+            }
+        }
         ai.WorkingMemory.SetItem("waypointNetwork", GetGuardPoints(ai).GetComponent<WaypointRig>());
     }
 
@@ -50,7 +47,7 @@ public class ChooseRoom : RAINAction {
     /// <returns>The room points of the specified guard.</returns>
     /// <param name="ai">The guard to get room points for.</param>
     private RoomPoints GetGuardPoints(AI ai) {
-        int guardNumber = (int)ai.WorkingMemory.GetItem("guardNumber");
+        int guardNumber = (int)ai.WorkingMemory.GetItem(GUARD_NUMBER);
         return roomPoints[guardNumber];
     }
 }

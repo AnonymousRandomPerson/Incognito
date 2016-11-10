@@ -32,7 +32,8 @@ public class RigidbodyController : MonoBehaviour
     private bool startJump = false;
     private bool startRoll = false;
 
-
+    /// <summary> The character's ragdoll colliders. </summary>
+    private Collider[] ragdoll;
 
     void Awake()
     {
@@ -41,6 +42,11 @@ public class RigidbodyController : MonoBehaviour
         coll = GetComponent<CapsuleCollider>();
         groundingBox = GetComponent<BoxCollider>();
         aud = GetComponent<AudioSource>();
+        Transform hips = transform.FindChild("Hips");
+        if (hips != null) {
+            ragdoll = hips.GetComponentsInChildren<Collider>();
+            SetRagdollActive(false);
+        }
 
         if (stepper == null)
         {
@@ -286,5 +292,15 @@ public class RigidbodyController : MonoBehaviour
         startRoll = roll;
     }
 
+    /// <summary>
+    /// Enables or disables ragdoll physics on the character.
+    /// </summary>
+    /// <param name="active">Whether to enable ragdoll physics on the character.</param>
+    public void SetRagdollActive(bool active) {
+        foreach (Collider collider in ragdoll) {
+            collider.gameObject.SetActive(active);
+        }
+        anim.enabled = !active;
+    }
 }
 

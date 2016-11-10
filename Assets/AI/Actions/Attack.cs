@@ -10,8 +10,7 @@ public class Attack : RAINAction
 {
 
     private float attackTimer = 0;
-    private float attackTime = .3f;
-    private float attackDamage = 0;
+    private float attackTime = 1f;
     private float projectileSpeed = 30;
     private float inaccuracy = .2f;
     private int leadCalcIters = 10;
@@ -20,21 +19,17 @@ public class Attack : RAINAction
 
 
     bool started = false;
-
-    float CALL_IN_DURATION = 3.5f;
     /// <summary>
     /// Updates the AI every frame.
     /// </summary>
     /// <param name="ai">The AI to update.</param>
     public override ActionResult Execute(AI ai)
     {
-        Debug.Log("Attack");
         GameObject p = (GameObject)ai.WorkingMemory.GetItem(SquadManager.PLAYER);
 
 
         if (p == null)
         {
-            Debug.Log("attack fail");
             return ActionResult.FAILURE;
         }
 
@@ -59,23 +54,24 @@ public class Attack : RAINAction
 
     void doRangedAttack(AI ai, GameObject player)
     {
-        GunBarrel barrel = ai.Body.GetComponent<GunBarrel>();
-        barrel.Fire();
-        Vector3 firePoint = barrel.barrelParticles.GetComponent<Transform>().position;
+        if (player.GetComponent<Health>().health > 0) {
+            GunBarrel barrel = ai.Body.GetComponent<GunBarrel>();
+            barrel.Fire();
+            Vector3 firePoint = barrel.barrelParticles.GetComponent<Transform>().position;
 
-        Vector3 pos = player.GetComponent<Transform>().position + new Vector3(0, 1, 0); //throw up off the ground
-        Vector3 vel = player.GetComponent<Rigidbody>().velocity;
-        Vector3 target = getLeadingPosition(pos, vel, firePoint);
+            Vector3 pos = player.GetComponent<Transform>().position + new Vector3(0, 1, 0); //throw up off the ground
+            Vector3 vel = player.GetComponent<Rigidbody>().velocity;
+            Vector3 target = getLeadingPosition(pos, vel, firePoint);
 
-        GameObject obj = GameObject.Instantiate(projectile);
-        obj.GetComponent<Transform>().position = firePoint;
+            GameObject obj = GameObject.Instantiate(projectile);
+            obj.GetComponent<Transform>().position = firePoint;
 
 
-        Bullet proj = obj.GetComponent<Bullet>();
-        proj.setDamage(attackDamage);
+            Bullet proj = obj.GetComponent<Bullet>();
 
-        Vector3 bulletVel = (target - firePoint).normalized * projectileSpeed + inaccuracy * Random.onUnitSphere;
-        proj.setVelocity(bulletVel);
+            Vector3 bulletVel = (target - firePoint).normalized * projectileSpeed + inaccuracy * Random.onUnitSphere;
+            proj.setVelocity(bulletVel);
+        }
 
     }
 
