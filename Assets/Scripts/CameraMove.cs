@@ -5,7 +5,8 @@ public class CameraMove : MonoBehaviour {
 
     //replace these with waypoints from the real scene
     public GameObject[] waypoints;
-    float speed = 0.25f;
+    float speed = 0.25f;//distance covered per time interval essentially
+    float rotation = 20f;//degrees per time interval essentially
     Transform target;
     int current = 1;
 
@@ -16,9 +17,10 @@ public class CameraMove : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        updateNextPos();
+        //updateNextPos();
         //transform.LookAt(target);
-        transform.position = Vector3.MoveTowards(this.transform.position, target.position, speed);
+        // transform.position = Vector3.MoveTowards(this.transform.position, target.position, speed);
+        transform.Rotate(rotation * Vector3.up * Time.deltaTime, Space.World);
     }
     void updateNextPos()
     {
