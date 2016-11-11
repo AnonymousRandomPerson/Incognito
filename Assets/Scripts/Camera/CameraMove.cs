@@ -5,7 +5,7 @@ public class CameraMove : MonoBehaviour {
 
     //replace these with waypoints from the real scene
     public GameObject[] waypoints;
-    float speed = 0.15f;//distance covered per time interval essentially
+    float speed = 0.10f;//distance covered per time interval essentially
     float rotation = 10f;//degrees per time interval essentially
     Transform target;
     int current = 1;
