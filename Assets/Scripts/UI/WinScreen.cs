@@ -4,12 +4,12 @@ using UnityEngine.UI;
 using System.Collections;
 
 /// <summary>
-/// Animates the game over screen fading in.
+/// Animates the win screen fading in.
 /// </summary>
-public class GameOverScreen : FadeInScreen {
+public class WinScreen : FadeInScreen {
 
     /// <summary> The singleton instance of the object. </summary>
-    public static GameOverScreen instance {
+    public static WinScreen instance {
         get;
         private set;
     }

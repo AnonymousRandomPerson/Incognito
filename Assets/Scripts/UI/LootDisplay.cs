@@ -29,11 +29,10 @@ class LootDisplay : MonoBehaviour {
     }
 
     /// <summary>
-    /// Initializes the object.
+    /// Creates loot images according to the number of items in the level.
     /// </summary>
-    private void Start() {
-        Loot[] allLoot = GameObject.FindObjectsOfType<Loot>();
-        lootImages = new LootImage[allLoot.Length];
+    public void CreateLootImages(int numLoot) {
+        lootImages = new LootImage[numLoot];
         float imageOffset = lootImagePrefab.GetComponent<RectTransform>().rect.width + 10;
         for (int i = 0; i < lootImages.Length; i++) {
             lootImages[i] = GameObject.Instantiate(lootImagePrefab, transform.position, transform.rotation) as LootImage;

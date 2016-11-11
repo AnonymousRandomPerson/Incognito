@@ -16,6 +16,9 @@ public class Health : MonoBehaviour {
         get { return health / maxHealth; }
     }
 
+    /// <summary> Whether the player is invincible to damage. </summary>
+    public bool invincible = false;
+
     /// <summary> The sound played when the player takes damage. </summary>
     [SerializeField]
     [Tooltip("The sound played when the player takes damage.")]
@@ -36,14 +39,26 @@ public class Health : MonoBehaviour {
     /// Deals damage to the player.
     /// </summary>
     /// <param name="damage">The amount of damage to deal.</param>
-    public void Damage(float damage) {
-        if (health > 0) {
-            audioSource.PlayOneShot(damageSound);
-            health -= damage;
-            if (health <= 0) {
-                Die();
+    /// <param name="playSound">Whether to play the damage sound.</param>
+    public void Damage(float damage, bool playSound = true) {
+        if (!invincible) {
+            if (health > 0) {
+                if (playSound) {
+                    audioSource.PlayOneShot(damageSound);
+                }
+                health -= damage;
+                if (health <= 0) {
+                    Die();
+                }
             }
         }
+    }
+
+    /// <summary>
+    /// Instantly kills the player.
+    /// </summary>
+    public void OHKO() {
+        Damage(maxHealth, false);
     }
 
     /// <summary>
@@ -51,6 +66,7 @@ public class Health : MonoBehaviour {
     /// </summary>
     private void Die() {
         GetComponent<RigidbodyController>().SetRagdollActive(true);
+        GetComponent<Interact>().enabled = false;
         GameOverScreen.instance.Show();
     }
 }
