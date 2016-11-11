@@ -20,4 +20,12 @@ public class WinScreen : FadeInScreen {
     private void Awake() {
         instance = this;
     }
+
+    /// <summary>
+    /// Gets the scene to load after the screen has been shown for a while.
+    /// </summary>
+    /// <returns>The scene to load after the screen has been shown for a while.</returns>
+    protected override string GetTransitionScene() {
+        return "menuWithBase";
+    }
 }

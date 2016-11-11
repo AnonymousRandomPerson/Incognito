@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: dfdbef4cda4e2a04f9cdd9b97030bd79
+timeCreated: 1478660419
+licenseType: Free
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - mainmenu_canvas: {instanceID: 0}
+  - credits_canvas: {instanceID: 0}
+  - credits_button: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

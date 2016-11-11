@@ -50,8 +50,14 @@ public abstract class FadeInScreen : MonoBehaviour {
         yield return new WaitForSeconds(startOverTime * timeSlow);
 
         Time.timeScale = 1.0f;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        SceneManager.LoadScene(GetTransitionScene());
     }
+
+    /// <summary>
+    /// Gets the scene to load after the screen has been shown for a while.
+    /// </summary>
+    /// <returns>The scene to load after the screen has been shown for a while.</returns>
+    protected abstract string GetTransitionScene();
 
     /// <summary>
     /// Updates the object.
