@@ -14,13 +14,13 @@ public class menuManager : MonoBehaviour {
 
     public void OnPlayClick()
     {
-        SceneManager.LoadScene("Office");
+        Debug.Log("You have clicked the Play button!");
     }
 
     public void OnCreditsClick()
     {
-        Debug.Log(SceneManager.GetSceneByName("Office").buildIndex);
         Debug.Log("You have clicked the Credits button!");
+        mainmenu_buttons[highlighted].GetComponentInChildren<Text>().color = Color.white;
         mainmenu_canvas.enabled = false;
         credits_canvas.enabled = true;
     }
@@ -60,37 +60,54 @@ public class menuManager : MonoBehaviour {
 
     void Update()
     {
-        if (Input.anyKeyDown) Cursor.visible = false;
-        if (Input.GetAxis("Mouse X") != 0 || Input.GetAxis("Mouse Y") != 0) Cursor.visible = true;
-            if (mainmenu_canvas.isActiveAndEnabled)
-            {
-                if (!quit_canvas.enabled)
-                {
-                    int oldhighlighted = highlighted;
-                    if (Input.GetKeyDown(KeyCode.UpArrow))
-                        highlighted--;
-                    else if (Input.GetKeyDown(KeyCode.DownArrow))
-                        highlighted++;
-                    if (highlighted < 0) highlighted = mainmenu_buttons.Length - 1;
-                    else highlighted = highlighted % mainmenu_buttons.Length;
 
-                    GameObject gcm = getCurrentMousePointerObject(mainmenu_canvas);
-                    if (gcm != null)
-                        for (int i = 0; i < mainmenu_buttons.Length; i++)
-                            if (mainmenu_buttons[i].gameObject.GetInstanceID() == gcm.GetInstanceID())
-                                highlighted = i;
-                    mainmenu_buttons[oldhighlighted].GetComponentInChildren<Text>().color = Color.white;
-                    mainmenu_buttons[highlighted].GetComponentInChildren<Text>().color = Color.black;
-                    myEventSystem.SetSelectedGameObject(mainmenu_buttons[highlighted].gameObject);
+        if (mainmenu_canvas.isActiveAndEnabled)
+            {
+            if (!quit_canvas.enabled)
+            {
+                if (Input.GetAxis("Mouse X") != 0 || Input.GetAxis("Mouse Y") != 0)
+                {
+                    Cursor.visible = true;
+                    mainmenu_canvas.GetComponent<GraphicRaycaster>().enabled = true;
                 }
+                int oldhighlighted = highlighted;
+                if (Input.GetKeyDown(KeyCode.UpArrow))
+                {
+                    highlighted--;
+                    mainmenu_canvas.GetComponent<GraphicRaycaster>().enabled = false;
+                    Cursor.visible = false;
+                }
+                else if (Input.GetKeyDown(KeyCode.DownArrow))
+                {
+                    highlighted++;
+                    mainmenu_canvas.GetComponent<GraphicRaycaster>().enabled = false;
+                    Cursor.visible = false;
+                }
+                if (highlighted < 0) highlighted = mainmenu_buttons.Length - 1;
+                else highlighted = highlighted % mainmenu_buttons.Length;
+
+                GameObject gcm = getCurrentMousePointerObject(mainmenu_canvas);
+                if (gcm != null)
+                    for (int i = 0; i < mainmenu_buttons.Length; i++)
+                        if (mainmenu_buttons[i].gameObject.GetInstanceID() == gcm.GetInstanceID())
+                            highlighted = i;
+                mainmenu_buttons[oldhighlighted].GetComponentInChildren<Text>().color = Color.white;
+                mainmenu_buttons[highlighted].GetComponentInChildren<Text>().color = Color.black;
+                myEventSystem.SetSelectedGameObject(mainmenu_buttons[highlighted].gameObject);
+            }
+            else Cursor.visible = true;
 
         }
             else
             {
                 highlighted = 0;//highlight the first button in the main menu when gone back
-            if (credits_canvas.isActiveAndEnabled)
-                if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Mouse0))
-                    OnCreditsBackClick();
+                if (credits_canvas.isActiveAndEnabled)
+                {
+                    if (Input.GetAxis("Mouse X") != 0 || Input.GetAxis("Mouse Y") != 0)
+                        Cursor.visible = true;
+                    if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Mouse0))
+                        OnCreditsBackClick();
+                }
             }
     }
 
@@ -99,6 +116,7 @@ public class menuManager : MonoBehaviour {
 
     GameObject getCurrentMousePointerObject(Canvas C)
     {
+        if (!Cursor.visible) return null;
         GraphicRaycaster gr = C.GetComponent<GraphicRaycaster>();
         //Create the PointerEventData with null for the EventSystem
         PointerEventData ped = new PointerEventData(null);
