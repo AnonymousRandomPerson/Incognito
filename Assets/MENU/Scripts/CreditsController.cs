@@ -20,7 +20,6 @@ public class CreditsController : MonoBehaviour {
         else 
         {
             myAnim.enabled = false;
-            myAnim.Rebind();
         }
 	}
 
