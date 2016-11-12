@@ -14,12 +14,11 @@ public class menuManager : MonoBehaviour {
 
     public void OnPlayClick()
     {
-        Debug.Log("You have clicked the Play button!");
+        SceneManager.LoadScene("Office");
     }
 
     public void OnCreditsClick()
     {
-        Debug.Log("You have clicked the Credits button!");
         mainmenu_buttons[highlighted].GetComponentInChildren<Text>().color = Color.white;
         mainmenu_canvas.enabled = false;
         credits_canvas.enabled = true;
@@ -27,7 +26,6 @@ public class menuManager : MonoBehaviour {
 
     public void OnQuitClick()
     {
-        Debug.Log("You have clicked the Quit button!");
         quit_canvas.enabled = true;
         //Application.Quit();
     }
@@ -36,6 +34,7 @@ public class menuManager : MonoBehaviour {
     {
         mainmenu_canvas.enabled = true;
         credits_canvas.enabled = false;
+        credits_canvas.GetComponentInChildren<Animator>().Rebind();
     }
 
     public void OnQuitYesPressed()
@@ -62,14 +61,14 @@ public class menuManager : MonoBehaviour {
     {
 
         if (mainmenu_canvas.isActiveAndEnabled)
+        {
+            if (Input.GetAxis("Mouse X") != 0 || Input.GetAxis("Mouse Y") != 0)
             {
+                Cursor.visible = true;
+                mainmenu_canvas.GetComponent<GraphicRaycaster>().enabled = true;
+            }
             if (!quit_canvas.enabled)
             {
-                if (Input.GetAxis("Mouse X") != 0 || Input.GetAxis("Mouse Y") != 0)
-                {
-                    Cursor.visible = true;
-                    mainmenu_canvas.GetComponent<GraphicRaycaster>().enabled = true;
-                }
                 int oldhighlighted = highlighted;
                 if (Input.GetKeyDown(KeyCode.UpArrow))
                 {
@@ -95,20 +94,21 @@ public class menuManager : MonoBehaviour {
                 mainmenu_buttons[highlighted].GetComponentInChildren<Text>().color = Color.black;
                 myEventSystem.SetSelectedGameObject(mainmenu_buttons[highlighted].gameObject);
             }
-            else Cursor.visible = true;
 
         }
-            else
+        else
+        {
+            highlighted = 0;//highlight the first button in the main menu when gone back
+            if (credits_canvas.isActiveAndEnabled)
             {
-                highlighted = 0;//highlight the first button in the main menu when gone back
-                if (credits_canvas.isActiveAndEnabled)
+                if (Input.GetAxis("Mouse X") != 0 || Input.GetAxis("Mouse Y") != 0)
+                    Cursor.visible = true;
+                if (Input.GetKeyDown(KeyCode.Escape))
                 {
-                    if (Input.GetAxis("Mouse X") != 0 || Input.GetAxis("Mouse Y") != 0)
-                        Cursor.visible = true;
-                    if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Mouse0))
-                        OnCreditsBackClick();
+                    OnCreditsBackClick();
                 }
             }
+        }
     }
 
     //Problem in highlighting controls 

@@ -32,3 +32,4 @@ sysinfo.txt
 .DS_Store
 Library/*
 Assets/Military1*
+.vs*

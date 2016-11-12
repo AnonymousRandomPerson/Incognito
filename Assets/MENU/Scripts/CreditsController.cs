@@ -17,7 +17,11 @@ public class CreditsController : MonoBehaviour {
         {
             myAnim.enabled = true;            
         }
-        else myAnim.enabled = false;
+        else 
+        {
+            myAnim.enabled = false;
+            myAnim.Rebind();
+        }
 	}
 
     void setCreditText()
@@ -28,7 +32,7 @@ public class CreditsController : MonoBehaviour {
         "AI Programming\nCheng Hann Gan\nJimmy Spearman\n\n" +
         "Character Design\nAbhishek Nigam\nJimmy Spearman\n\n" +
         "Gameplay Programming\nCheng Hann Gan\nOdell Mizrahi\nAbhishek Nigam\nJimmy Spearman\n\n" +
-        "Level Design\nCheng Hann Gan\nOdell Mizrahi\nTulga Myagmarjav\n" +
+        "Level Design\nCheng Hann Gan\nOdell Mizrahi\nTulga Myagmarjav\n\n" +
         "Sound Design\nCheng Hann Gan\nJimmy Spearman\n\n" +
         "UI Design\nTulga Myagmarjav\nAbhishek Nigam\n\n" +
         "External Resources\n" +
