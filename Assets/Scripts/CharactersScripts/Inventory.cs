@@ -9,12 +9,9 @@ public class Inventory : MonoBehaviour {
     /// <summary> The items that the player has stolen. </summary>
     private List<Loot> inventory;
 
-    /// <summary> The number of items that can be stolen in the level. </summary>
-    private int numLoot;
-
-    /// <summary> Whether the player has collected all loot in the scene. </summary>
-    public bool hasLoot {
-        get { return inventory.Count > 0; }
+    /// <summary> Whether the player has collected enough loot to finish the level. </summary>
+    public bool hasEnoughLoot {
+        get { return inventory.Count >= LootManager.instance.numNeededLoot; }
     }
 
     /// <summary> The audio source on the player. </summary>
@@ -26,9 +23,6 @@ public class Inventory : MonoBehaviour {
     private void Start() {
         inventory = new List<Loot>();
         audioSource = GetComponent<AudioSource>();
-        Loot[] allLoot = GameObject.FindObjectsOfType<Loot>();
-        numLoot = allLoot.Length;
-        LootDisplay.instance.CreateLootImages(numLoot);
     }
 
     /// <summary>

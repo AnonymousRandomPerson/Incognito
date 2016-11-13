@@ -31,13 +31,18 @@ class LootDisplay : MonoBehaviour {
     /// <summary>
     /// Creates loot images according to the number of items in the level.
     /// </summary>
-    public void CreateLootImages(int numLoot) {
+    /// <param name="numLoot">The amount of loot in the level.</param>
+    /// <param name="numNeededLoot">The amount of loot that needs to be collected to win.</param>
+    public void CreateLootImages(int numLoot, int numNeededLoot) {
         lootImages = new LootImage[numLoot];
         float imageOffset = lootImagePrefab.GetComponent<RectTransform>().rect.width + 10;
         for (int i = 0; i < lootImages.Length; i++) {
             lootImages[i] = GameObject.Instantiate(lootImagePrefab, transform.position, transform.rotation) as LootImage;
             lootImages[i].transform.SetParent(transform);
             lootImages[i].transform.position += Vector3.left * imageOffset * i;
+            if (i >= numNeededLoot) {
+                lootImages[i].transform.localScale *= 0.7f;
+            }
         }
 
         Text lootText = GetComponentInChildren<Text>();

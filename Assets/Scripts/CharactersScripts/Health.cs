@@ -67,6 +67,7 @@ public class Health : MonoBehaviour {
     private void Die() {
         GetComponent<RigidbodyController>().SetRagdollActive(true);
         GetComponent<Interact>().enabled = false;
+        transform.FindChild("Entity").gameObject.SetActive(false);
         GameOverScreen.instance.Show();
     }
 }

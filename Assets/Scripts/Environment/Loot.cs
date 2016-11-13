@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System;
 
 /// <summary>
 /// An item for the player to steal.
@@ -12,6 +13,15 @@ class Loot : MonoBehaviour {
     /// <summary> The sound played when stealing the item. </summary>
     public AudioClip StealSound {
         get { return stealSound; }
+    }
+
+    /// <summary> The unique index of the loot. </summary>
+    public int lootIndex {
+        get {
+            int startIndex = gameObject.name.IndexOf('(') + 1;
+            int numLength = gameObject.name.IndexOf(')') - startIndex;
+            return Convert.ToInt32(gameObject.name.Substring(startIndex, numLength));
+        }
     }
 
     /// <summary>

@@ -20,9 +20,10 @@ class Exit : MonoBehaviour, Interactable {
     /// <param name="player">The player interacting with the object.</param>
     public void Interact(GameObject player) {
         AudioSource audioSource = player.GetComponent<AudioSource>();
-        if (player.GetComponent<Inventory>().hasLoot) {
+        if (player.GetComponent<Inventory>().hasEnoughLoot) {
             audioSource.PlayOneShot(winSound);
             player.GetComponent<Health>().invincible = true;
+            LootManager.instance.ResetLoot();
             WinScreen.instance.Show();
         } else {
             audioSource.PlayOneShot(rejectSound);
