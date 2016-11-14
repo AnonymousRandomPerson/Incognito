@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 
 public class Pause : MonoBehaviour {
     public Canvas pauseCanvas;
@@ -18,6 +19,7 @@ public class Pause : MonoBehaviour {
             {
                 Time.timeScale = 0;
                 pauseCanvas.enabled = true;
+                EventSystem.current.SetSelectedGameObject(pauseCanvas.GetComponentInChildren<UnityEngine.UI.Button>().gameObject);
             }
             else
             {
