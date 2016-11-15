@@ -11,8 +11,8 @@ public class UserController : MonoBehaviour {
     void handleInputs()
     {
         //float turn = Input.GetAxis("Mouse X");
-        float turn = Input.GetAxis("Horizontal");
-        float speed = Input.GetAxis("Vertical");
+        float turn = Input.GetAxisRaw("Horizontal");
+        float speed = Input.GetAxisRaw("Vertical");
         float roll = Input.GetAxis("Fire1");
         float jump = Input.GetAxis("Jump");
 

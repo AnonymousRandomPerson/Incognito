@@ -78,12 +78,15 @@ public class RigidbodyController : MonoBehaviour
 
 
 
-        gameObject.transform.Rotate(0, turn * turnSpeed * Time.deltaTime, 0);
-
-
-
         anim.SetFloat("speed", speed, 0.2f, Time.deltaTime);
-        anim.SetFloat("turn", turn, 0.2f, Time.deltaTime);
+
+		if (speed >= 0) {
+			anim.SetFloat("turn", turn, 0.2f, Time.deltaTime);
+			gameObject.transform.Rotate(0, turn * turnSpeed * Time.deltaTime, 0);
+		} else {
+			anim.SetFloat("turn", -turn, 0.2f, Time.deltaTime);
+			gameObject.transform.Rotate(0, -turn * turnSpeed * Time.deltaTime, 0);
+		}
 
         anim.SetBool("startRoll", startRoll);
 
