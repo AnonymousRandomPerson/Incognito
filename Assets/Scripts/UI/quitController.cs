@@ -28,10 +28,7 @@ public class quitController : MonoBehaviour
 
     bool anyDirectionKey()
     {
-        if (Input.GetKeyDown(KeyCode.UpArrow)
-         || Input.GetKeyDown(KeyCode.LeftArrow)
-         || Input.GetKeyDown(KeyCode.RightArrow)
-         || Input.GetKeyDown(KeyCode.DownArrow))
+        if (Input.GetAxisRaw("Horizontal") > 0.5f || Input.GetAxisRaw("Vertical") > 0.5f)
             return true;
         return false;
     }

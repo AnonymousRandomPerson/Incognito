@@ -11,6 +11,10 @@ public class menuManager : MonoBehaviour {
     public Button credits_button;
     int highlighted;
     EventSystem myEventSystem;
+    /// <summary> Prevents scrolling from occurring too quickly. </summary>
+    private const float SCROLL_DELAY = 0.1f;
+    /// <summary> Prevents scrolling from occurring too quickly. </summary>
+    private float scrollTimer;
 
     public void OnPlayClick()
     {
@@ -70,17 +74,24 @@ public class menuManager : MonoBehaviour {
             if (!quit_canvas.enabled)
             {
                 int oldhighlighted = highlighted;
-                if (Input.GetKeyDown(KeyCode.UpArrow))
-                {
-                    highlighted--;
-                    mainmenu_canvas.GetComponent<GraphicRaycaster>().enabled = false;
-                    Cursor.visible = false;
-                }
-                else if (Input.GetKeyDown(KeyCode.DownArrow))
-                {
-                    highlighted++;
-                    mainmenu_canvas.GetComponent<GraphicRaycaster>().enabled = false;
-                    Cursor.visible = false;
+                if (scrollTimer <= 0) {
+                    float scroll = Input.GetAxisRaw("Vertical");
+                    if (scroll > 0.5f)
+                    {
+                        highlighted--;
+                        mainmenu_canvas.GetComponent<GraphicRaycaster>().enabled = false;
+                        Cursor.visible = false;
+                        scrollTimer = SCROLL_DELAY;
+                    }
+                    else if (scroll < -0.5f)
+                    {
+                        highlighted++;
+                        mainmenu_canvas.GetComponent<GraphicRaycaster>().enabled = false;
+                        Cursor.visible = false;
+                        scrollTimer = SCROLL_DELAY;
+                    }
+                } else {
+                    scrollTimer -= Time.deltaTime;
                 }
                 if (highlighted < 0) highlighted = mainmenu_buttons.Length - 1;
                 else highlighted = highlighted % mainmenu_buttons.Length;
@@ -103,7 +114,7 @@ public class menuManager : MonoBehaviour {
             {
                 if (Input.GetAxis("Mouse X") != 0 || Input.GetAxis("Mouse Y") != 0)
                     Cursor.visible = true;
-                if (Input.GetKeyDown(KeyCode.Escape))
+                if (Input.GetButtonDown("Pause"))
                 {
                     OnCreditsBackClick();
                 }
