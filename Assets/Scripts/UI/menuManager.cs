@@ -31,7 +31,7 @@ public class menuManager : MonoBehaviour {
     public void OnQuitClick()
     {
         quit_canvas.enabled = true;
-        //Application.Quit();
+//        Application.Quit();
     }
 
     public void OnCreditsBackClick()
@@ -43,7 +43,7 @@ public class menuManager : MonoBehaviour {
 
     public void OnQuitYesPressed()
     {
-        Application.Quit();
+		Application.Quit();
     }
 
     public void OnQuitNoPressed()
