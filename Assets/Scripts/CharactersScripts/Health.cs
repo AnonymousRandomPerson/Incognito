@@ -16,6 +16,11 @@ public class Health : MonoBehaviour {
         get { return health / maxHealth; }
     }
 
+    /// <summary> Whether the player is dead. </summary>
+    public bool dead {
+        get { return health <= 0; }
+    }
+
     /// <summary> Whether the player is invincible to damage. </summary>
     public bool invincible = false;
 
@@ -43,6 +48,7 @@ public class Health : MonoBehaviour {
     public void Damage(float damage, bool playSound = true) {
         if (!invincible) {
             if (health > 0) {
+                Logger.instance.LogDamage();
                 if (playSound) {
                     audioSource.PlayOneShot(damageSound);
                 }

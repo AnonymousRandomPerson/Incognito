@@ -30,5 +30,6 @@ class Loot : MonoBehaviour {
     public void StealItem() {
         gameObject.SetActive(false);
         LootDisplay.instance.CollectLoot();
+        Logger.instance.LogLoot(transform.position);
     }
 }

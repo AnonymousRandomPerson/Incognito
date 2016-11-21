@@ -29,5 +29,6 @@ class Terminal : MonoBehaviour, Interactable {
         foreach (LaserSensor laser in lasers) {
             laser.Toggle();
         }
+        Logger.instance.LogTerminal(transform.position);
     }
 }

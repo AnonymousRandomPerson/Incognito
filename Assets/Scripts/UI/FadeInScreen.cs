@@ -40,6 +40,7 @@ public abstract class FadeInScreen : MonoBehaviour {
     public void Show() {
         gameObject.SetActive(true);
         Time.timeScale = timeSlow;
+        Logger.instance.WriteToFile();
         StartCoroutine(StartOver());
     }
 

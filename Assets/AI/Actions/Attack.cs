@@ -71,6 +71,7 @@ public class Attack : RAINAction
 
             Vector3 bulletVel = (target - firePoint).normalized * projectileSpeed + inaccuracy * Random.onUnitSphere;
             proj.setVelocity(bulletVel);
+            Logger.instance.LogShot(obj.transform.position);
         }
 
     }

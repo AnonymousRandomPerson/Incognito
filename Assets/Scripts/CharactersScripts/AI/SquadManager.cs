@@ -51,5 +51,6 @@ class SquadManager : MonoBehaviour {
                 guard.WorkingMemory.SetItem(LAST_SEEN_PLAYER, player.transform.position);
             }
         }
+        Logger.instance.LogSpotted();
     }
 }
