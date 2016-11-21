@@ -37,6 +37,14 @@ public class LootManager : MonoBehaviour {
     /// </summary>
     private void Start() {
         Loot[] allLoot = GameObject.FindObjectsOfType<Loot>();
+        selectedLoot = new HashSet<int>();
+        // TODO Remove hard-coded positions after playtesting.
+        selectedLoot.Add(1);
+        selectedLoot.Add(2);
+        selectedLoot.Add(3);
+        selectedLoot.Add(4);
+        selectedLoot.Add(5);
+        selectedLoot.Add(9);
         if (selectedLoot == null) {
             List<Loot> allLootList = new List<Loot>(allLoot.Length);
             foreach (Loot loot in allLoot) {
