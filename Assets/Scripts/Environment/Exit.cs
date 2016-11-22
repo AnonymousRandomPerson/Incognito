@@ -4,7 +4,9 @@
 /// Ends the level if the player interacts with it.
 /// </summary>
 class Exit : MonoBehaviour, Interactable {
-
+    bool won = false;
+    float speed = 2f;
+    public Transform lift;
     /// <summary> The sound played when the player wins the level. </summary>
     [SerializeField]
     [Tooltip("The sound played when the player wins the level.")]
@@ -25,8 +27,15 @@ class Exit : MonoBehaviour, Interactable {
             player.GetComponent<Health>().invincible = true;
             LootManager.instance.ResetLoot();
             WinScreen.instance.Show();
+            won = true;
         } else {
             audioSource.PlayOneShot(rejectSound);
         }
+    }
+
+    public void Update()
+    {
+        if (won)
+            lift.position = new Vector3(lift.position.x, lift.position.y + speed * Time.deltaTime, lift.position.z);
     }
 }
