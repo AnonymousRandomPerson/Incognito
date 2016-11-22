@@ -38,4 +38,10 @@ public class pauseManager : MonoBehaviour {
         Time.timeScale = 1;
         SceneManager.LoadScene("menuWithBase");
     }
+
+    public void OnPauseRestartClick()
+    {
+        Time.timeScale = 1;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
 }
