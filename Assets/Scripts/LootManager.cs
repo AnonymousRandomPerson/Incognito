@@ -5,7 +5,7 @@ using System.Collections.Generic;
 /// Coordinates the placement of loot in the level.
 /// </summary>
 public class LootManager : MonoBehaviour {
-    
+
     /// <summary> The number of items that can be stolen in the level. </summary>
     [SerializeField]
     [Tooltip("The number of items that can be stolen in the level.")]
@@ -24,6 +24,7 @@ public class LootManager : MonoBehaviour {
         get;
         private set;
     }
+
 
     /// <summary>
     /// Initializes the singleton instance of the object.
@@ -72,5 +73,10 @@ public class LootManager : MonoBehaviour {
     /// </summary>
     public void ResetLoot() {
         selectedLoot = null;
+    }
+
+    public int getLoot()
+    {
+        return numLoot;
     }
 }

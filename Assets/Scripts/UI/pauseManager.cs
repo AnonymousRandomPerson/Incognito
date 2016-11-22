@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
 
-public class Pause : MonoBehaviour {
+public class pauseManager : MonoBehaviour {
     public Canvas pauseCanvas;
     bool paused;
 	// Use this for initialization
