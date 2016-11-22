@@ -16,6 +16,8 @@ class Exit : MonoBehaviour, Interactable {
     [Tooltip("The sound played when the player attempts to exit the level without collecting everything.")]
     private AudioClip rejectSound;
 
+    
+
     /// <summary>
     /// Causes the player to interact with the object.
     /// </summary>

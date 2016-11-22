@@ -16,6 +16,11 @@ class Interact : MonoBehaviour {
     /// <summary> The level exit. </summary>
     private Exit exit;
 
+    private bool prompted;
+
+    public promptManager pM;
+    public Inventory inven;
+
     /// <summary>
     /// Initializes the object.
     /// </summary>
@@ -26,6 +31,7 @@ class Interact : MonoBehaviour {
         exclamation = transform.FindChild("Exclamation").gameObject;
 
         exit = FindObjectOfType<Exit>();
+        prompted = false;
     }
 
     /// <summary>
@@ -41,11 +47,23 @@ class Interact : MonoBehaviour {
         }
         if (interactable != null) {
             exclamation.SetActive(true);
+            if (!prompted)
+            {
+                if((Object)interactable != exit)
+                pM.showInteractMessage();
+                else
+                {
+                    if (inven.hasEnoughLoot) pM.showInteractMessage();
+                    else pM.showIncompleteLootMessage();
+                }
+                prompted = true;
+            }
             if (Input.GetButtonDown("Fire2")) {
                 interactable.Interact(gameObject);
             }
         } else {
             exclamation.SetActive(false);
+            prompted = false;
         }
     }
 }

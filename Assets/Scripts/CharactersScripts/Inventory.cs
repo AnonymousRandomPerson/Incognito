@@ -5,7 +5,8 @@ using System.Collections.Generic;
 /// Keeps track of the items the player has stolen.
 /// </summary>
 public class Inventory : MonoBehaviour {
-
+    bool gotenough;
+    bool gotall;
     /// <summary> The items that the player has stolen. </summary>
     private List<Loot> inventory;
 
@@ -14,15 +15,22 @@ public class Inventory : MonoBehaviour {
         get { return inventory.Count >= LootManager.instance.numNeededLoot; }
     }
 
+    public bool hasAllLoot{
+        get { return inventory.Count == LootManager.instance.getLoot(); }
+    }
+
     /// <summary> The audio source on the player. </summary>
     private AudioSource audioSource;
 
+    public promptManager pM;
     /// <summary>
     /// Initializes the object.
     /// </summary>
     private void Start() {
         inventory = new List<Loot>();
         audioSource = GetComponent<AudioSource>();
+        gotenough = false;
+        gotall = false;
     }
 
     /// <summary>
@@ -35,6 +43,16 @@ public class Inventory : MonoBehaviour {
             loot.StealItem();
             audioSource.PlayOneShot(loot.StealSound);
             inventory.Add(loot);
+            if (!gotenough && hasEnoughLoot)
+            {
+                pM.showPartialLootMessage();
+                gotenough = true;
+            }
+            if (!gotall && hasAllLoot)
+            {
+                pM.showCompleteLootMessage();
+                gotall = true;
+            }
         }
     }
 }
