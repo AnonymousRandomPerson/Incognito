@@ -1,4 +1,7 @@
 ﻿using UnityEngine;
+#if UNITY_5_5_OR_NEWER
+using UnityEngine.AI;
+#endif
 using System.Collections;
 
 [RequireComponent(typeof(NavMeshAgent))]
