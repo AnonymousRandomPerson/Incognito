@@ -32,7 +32,7 @@ public class Bullet : MonoBehaviour
     /// Damages the player and destroys the bullet upon contact.
     /// </summary>
     /// <param name="collisionInfo">The collision that caused this event.</param>
-    void OnCollisionStay(Collision collisionInfo)
+    void OnCollisionEnter(Collision collisionInfo)
     {
         Health health = collisionInfo.collider.GetComponent<Health>();
         if (health != null) {
