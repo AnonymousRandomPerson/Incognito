@@ -283,9 +283,9 @@ public class RigidbodyController : MonoBehaviour
 
     public void setTurn(float turn)
     {
-        if (turn > 1)
+        if (turn > 2)
         {
-            this.turn = 1;
+            this.turn = 2;
         } else
         {
             this.turn = turn;

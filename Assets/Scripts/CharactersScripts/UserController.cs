@@ -12,14 +12,23 @@ public class UserController : MonoBehaviour {
     void handleInputs()
     {
         //float turn = Input.GetAxis("Mouse X");
-        float hor = Input.GetAxis("Horizontal");
-        float vert = Input.GetAxis("Vertical");
+        float hor = Input.GetAxisRaw("Horizontal");
+        float vert = Input.GetAxisRaw("Vertical");
         float roll = Input.GetAxis("Jump");
 
         Vector2 velocity = new Vector2(hor, vert);
+        if (velocity.magnitude > 1)
+        {
+            velocity /= velocity.magnitude;
+        }
+
+        if (!Input.GetKey("left shift"))
+        {
+            velocity = velocity / 5;
+        }
 
         moveDirection(hor, vert);
-        character.setSpeed(3 * velocity.magnitude);
+        character.setSpeed(velocity.magnitude);
         character.roll(roll > 0.5);
     }
 

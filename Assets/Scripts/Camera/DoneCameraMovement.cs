@@ -16,9 +16,11 @@ public class DoneCameraMovement : MonoBehaviour
 	{
 		// Setting up the reference.
 		player = GameObject.FindGameObjectWithTag("Player").transform;
-		
-		// Setting the relative position as the initial relative position of the camera in the scene.
-		relCameraPos = transform.position - player.position;
+
+        // Setting the relative position as the initial relative position of the camera in the scene.
+        //relCameraPos = transform.position - player.position;
+
+        relCameraPos = new Vector3(0, 10, -5);
 		relCameraPosMag = relCameraPos.magnitude - 0.5f;
 	}
 	
