@@ -20,7 +20,7 @@ public class CameraMove : MonoBehaviour {
         //updateNextPos();
         //transform.LookAt(target);
         // transform.position = Vector3.MoveTowards(this.transform.position, target.position, speed);
-        transform.Rotate(rotation * Vector3.up * Time.deltaTime, Space.World);
+        //transform.Rotate(rotation * Vector3.up * Time.deltaTime, Space.World);
     }
     void updateNextPos()
     {

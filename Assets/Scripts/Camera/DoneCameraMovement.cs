@@ -25,6 +25,10 @@ public class DoneCameraMovement : MonoBehaviour
 	
 	void FixedUpdate ()
 	{
+
+        transform.position = player.position + relCameraPos;
+
+        /*
 		// The standard position of the camera is the relative position of the camera from the player.
         Vector3 standardPos = player.position + relCameraPos;
 		
@@ -58,7 +62,7 @@ public class DoneCameraMovement : MonoBehaviour
 		transform.position = Vector3.Lerp(transform.position, newPos, smooth * Time.deltaTime);
 		
 		// Make sure the camera is looking at the player.
-		SmoothLookAt();
+		SmoothLookAt();*/
 	}
 	
 	

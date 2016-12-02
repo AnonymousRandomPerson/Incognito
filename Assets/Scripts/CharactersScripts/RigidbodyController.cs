@@ -23,7 +23,7 @@ public class RigidbodyController : MonoBehaviour
     private AudioSource aud;
 
     private bool swimming;
-    public float turnSpeed = 1;
+    public float turnSpeed = 1f;
     public float swimEnterHeight = 0;
     public float swimHeightBuffer = 0;
 
@@ -82,6 +82,7 @@ public class RigidbodyController : MonoBehaviour
 
 		if (speed >= 0) {
 			anim.SetFloat("turn", turn, 0.2f, Time.deltaTime);
+            
 			gameObject.transform.Rotate(0, turn * turnSpeed * Time.deltaTime, 0);
 		} else {
 			anim.SetFloat("turn", -turn, 0.2f, Time.deltaTime);
@@ -282,7 +283,14 @@ public class RigidbodyController : MonoBehaviour
 
     public void setTurn(float turn)
     {
-        this.turn = turn;
+        if (turn > 1)
+        {
+            this.turn = 1;
+        } else
+        {
+            this.turn = turn;
+        }
+        
     }
 
     public void jump(bool jump)
@@ -305,5 +313,6 @@ public class RigidbodyController : MonoBehaviour
         }
         anim.enabled = !active;
     }
+
 }
 
