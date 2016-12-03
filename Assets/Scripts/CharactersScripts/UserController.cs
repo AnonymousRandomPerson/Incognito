@@ -24,7 +24,7 @@ public class UserController : MonoBehaviour {
 
         if (!Input.GetKey("left shift"))
         {
-            velocity = velocity / 5;
+            velocity = velocity / 3.5f;
         }
 
         moveDirection(hor, vert);
