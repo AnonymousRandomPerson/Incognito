@@ -6,9 +6,10 @@ using UnityEngine.EventSystems;
 using System.Collections.Generic;
 
 public class menuManager : MonoBehaviour {
-    public Canvas mainmenu_canvas, credits_canvas, quit_canvas;
+    public Canvas mainmenu_canvas, credits_canvas, quit_canvas, help_canvas;
+    public RawImage pc, controller;
     public Button[] mainmenu_buttons;
-    public Button credits_button;
+    //public Button credits_button;//use this if you want a back button in credits
     int highlighted;
     EventSystem myEventSystem;
     /// <summary> Prevents scrolling from occurring too quickly. </summary>
@@ -49,6 +50,29 @@ public class menuManager : MonoBehaviour {
     public void OnQuitNoPressed()
     {
         quit_canvas.enabled = false;
+    }
+
+    public void OnHelpClick()
+    {
+        Debug.Log("Help pressed");
+        mainmenu_buttons[highlighted].GetComponentInChildren<Text>().color = Color.white;
+        mainmenu_canvas.enabled = false;
+        mainmenu_canvas.GetComponent<CanvasGroup>().interactable = false;
+        help_canvas.enabled = true;
+        help_canvas.GetComponent<CanvasGroup>().interactable = true;
+        EventSystem.current.SetSelectedGameObject(help_canvas.GetComponentInChildren<UnityEngine.UI.Button>().gameObject);
+    }
+
+    public void OnHelpPCClick()
+    {
+        pc.enabled = true;
+        controller.enabled = false;
+    }
+
+    public void OnHelpControllerClick()
+    {
+        pc.enabled = false;
+        controller.enabled = true;
     }
 
     void Start()
@@ -117,6 +141,17 @@ public class menuManager : MonoBehaviour {
                 if (Input.GetButtonDown("Pause"))
                 {
                     OnCreditsBackClick();
+                }
+            }
+            else if (help_canvas.isActiveAndEnabled)
+            {
+                if (Input.GetButtonDown("Pause"))
+                {
+                    mainmenu_canvas.enabled = true;
+                    mainmenu_canvas.GetComponent<CanvasGroup>().interactable = true;
+                    help_canvas.enabled = false;
+                    help_canvas.GetComponent<CanvasGroup>().interactable = false;
+                    EventSystem.current.SetSelectedGameObject(mainmenu_canvas.GetComponentInChildren<UnityEngine.UI.Button>().gameObject);
                 }
             }
         }
