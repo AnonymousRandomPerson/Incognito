@@ -35,3 +35,4 @@ Library/*
 *.psd*
 .vs*
 Logs*
+Assets/RAIN/Editor/RAINProjectState.asset
