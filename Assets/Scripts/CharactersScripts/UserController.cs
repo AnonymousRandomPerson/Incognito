@@ -22,7 +22,7 @@ public class UserController : MonoBehaviour {
             velocity /= velocity.magnitude;
         }
 
-        if (!Input.GetKey("left shift"))
+        if (!Input.GetButton("Run") && Mathf.Abs(Input.GetAxisRaw("Analog")) < 0.01f)
         {
             velocity = velocity / 3.5f;
         }
