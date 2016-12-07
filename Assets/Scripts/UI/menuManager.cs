@@ -159,8 +159,23 @@ public class menuManager : MonoBehaviour {
                     OnCreditsBackClick();
                 }
             }
+            else if (levels_canvas.isActiveAndEnabled)
+            {
+                if (Input.GetAxis("Mouse X") != 0 || Input.GetAxis("Mouse Y") != 0)
+                    Cursor.visible = true;
+                if (Input.GetButtonDown("Pause"))
+                {
+                    mainmenu_canvas.enabled = true;
+                    mainmenu_canvas.GetComponent<CanvasGroup>().interactable = true;
+                    levels_canvas.enabled = false;
+                    levels_canvas.GetComponent<CanvasGroup>().interactable = false;
+                   // EventSystem.current.SetSelectedGameObject(mainmenu_canvas.GetComponentInChildren<UnityEngine.UI.Button>().gameObject);
+                }
+            }
             else if (help_canvas.isActiveAndEnabled)
             {
+                if (Input.GetAxis("Mouse X") != 0 || Input.GetAxis("Mouse Y") != 0)
+                    Cursor.visible = true;
                 if (Input.GetButtonDown("Pause"))
                 {
                     mainmenu_canvas.enabled = true;
