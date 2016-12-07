@@ -63,22 +63,23 @@ public class menuManager : MonoBehaviour {
     {
         Debug.Log("Help pressed");
         mainmenu_buttons[highlighted].GetComponentInChildren<Text>().color = Color.white;
-        EventSystem.current.SetSelectedGameObject(help_canvas.GetComponentInChildren<UnityEngine.UI.Button>().gameObject);
+        EventSystem.current.SetSelectedGameObject(null);
         mainmenu_canvas.enabled = false;
         mainmenu_canvas.GetComponent<CanvasGroup>().interactable = false;
         help_canvas.enabled = true;
         help_canvas.GetComponent<CanvasGroup>().interactable = true;
+        EventSystem.current.SetSelectedGameObject(help_canvas.GetComponentInChildren<UnityEngine.UI.Button>().gameObject);
     }
 
     public void OnLevelSelectClick()
     {
         mainmenu_buttons[highlighted].GetComponentInChildren<Text>().color = Color.white;
-        //highlighted = 0;
-        EventSystem.current.SetSelectedGameObject(levels_canvas.GetComponentInChildren<UnityEngine.UI.Button>().gameObject);
+        EventSystem.current.SetSelectedGameObject(null);
         mainmenu_canvas.enabled = false;
         mainmenu_canvas.GetComponent<CanvasGroup>().interactable = false;
         levels_canvas.enabled = true;
         levels_canvas.GetComponent<CanvasGroup>().interactable = true;
+        EventSystem.current.SetSelectedGameObject(levels_canvas.GetComponentInChildren<UnityEngine.UI.Button>().gameObject);
 
     }
 
