@@ -17,6 +17,7 @@ public class ResetGuard : RAINAction
     {
         ai.WorkingMemory.SetItem(SquadManager.ALARMED, false);
         ai.WorkingMemory.SetItem(SquadManager.LAST_SEEN_PLAYER, Vector3.zero);
+        ai.Motor.DefaultSpeed = InitializeGuard.WALK_SPEED;
         return ActionResult.SUCCESS;
     }
 }
