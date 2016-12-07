@@ -27,7 +27,7 @@ public class pauseManager : MonoBehaviour {
                 helpCanvas.enabled = false;
                 helpCanvas.GetComponent<CanvasGroup>().interactable = false;
                 pauseCanvas.GetComponent<CanvasGroup>().interactable = true;
-                EventSystem.current.SetSelectedGameObject(pauseCanvas.GetComponentInChildren<UnityEngine.UI.Button>().gameObject);
+                //EventSystem.current.SetSelectedGameObject(pauseCanvas.GetComponentInChildren<UnityEngine.UI.Button>().gameObject);
             }
             else
             {
