@@ -8,7 +8,7 @@ public class bl_MiniMap : MonoBehaviour
     // Target for the minimap.
     public GameObject m_Target;
     [Tooltip("Keycode to toggle map size mode (world and mini map)")]
-    public KeyCode ToogleKey = KeyCode.E;
+    public string ToggleButton = "Minimap";
     public Camera MMCamera = null;
     public RenderType m_Type = RenderType.Picture;
     public RenderMode m_Mode = RenderMode.Mode2D;
@@ -260,7 +260,7 @@ public class bl_MiniMap : MonoBehaviour
     void Inputs()
     {
         // If the minimap button is pressed then toggle the map state.
-        if (Input.GetKeyDown(ToogleKey))
+        if (Input.GetButtonDown(ToggleButton))
         {
             ToggleSize();
         }

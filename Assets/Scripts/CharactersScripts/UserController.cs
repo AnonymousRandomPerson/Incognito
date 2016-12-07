@@ -4,8 +4,10 @@ using System.Collections;
 [RequireComponent(typeof(Transform))]
 public class UserController : MonoBehaviour {
     public RigidbodyController character;
+    /// <summary> The player's current movement velocity </summary>
+    public Vector2 velocity;
 
-	void FixedUpdate () {
+    void FixedUpdate () {
         handleInputs();
     }
 
@@ -16,7 +18,8 @@ public class UserController : MonoBehaviour {
         float vert = Input.GetAxisRaw("Vertical");
         float roll = Input.GetAxis("Jump");
 
-        Vector2 velocity = new Vector2(hor, vert);
+        velocity.x = hor;
+        velocity.y = vert;
         if (velocity.magnitude > 1)
         {
             velocity /= velocity.magnitude;

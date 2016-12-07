@@ -1,22 +1,20 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-[RequireComponent(typeof(AudioSource))]
-[RequireComponent(typeof(ParticleSystem))]
 public class Footstep : MonoBehaviour {
 
-    private AudioSource aud;
-    private ParticleSystem ps;
-
-    void Awake()
+    /// <summary>
+    /// Plays a stepping sound and emits stepping particles.
+    /// </summary>
+    /// <param name="emitter">The object to emit particles and sound from.</param>
+    /// <param name="sound">The sound to play.</param>
+    /// <param name="color">The color the particles.</param>
+    /// <param name="volume">The volume of the sound.</param>
+    public void Step(GameObject emitter, AudioClip sound, Color color, float volume)
     {
-        aud = GetComponent<AudioSource>();
-        ps = GetComponent<ParticleSystem>();
-    }
-
-    public void Step(AudioClip sound, Color color, float volume)
-    {
-
+        AudioSource aud = emitter.GetComponent<AudioSource>();
+        ParticleSystem ps = emitter.GetComponent<ParticleSystem>();
+        emitter.transform.position = transform.position;
         if (sound != null && !aud.isPlaying)
         {
             aud.clip = sound;
@@ -24,14 +22,7 @@ public class Footstep : MonoBehaviour {
             aud.pitch = Random.Range(0.8f, 1.2f);
             aud.Play();
         }
-
-
-
-            ps.startColor = color;
-            //if (ps.isPlaying)
-            //{
-            //    ps.Stop();
-            //}
-            ps.Play();
+        ps.startColor = color;
+        ps.Emit((int)(20 * volume));
     }
 }

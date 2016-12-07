@@ -6,7 +6,8 @@ using System.Collections;
 
 public class RigidbodyController : MonoBehaviour
 {
-    public FootStepper stepper;
+    /// <summary> Controls footstep sounds and particles </summary>
+    private FootStepper stepper;
     public Footstep leftStep;
     public Footstep rightStep;
     public float gravity = 10.0f;
@@ -43,6 +44,7 @@ public class RigidbodyController : MonoBehaviour
             SetRagdollActive(false);
         }
 
+        stepper = GetComponent<FootStepper>();
         if (stepper == null)
         {
             usingFootStepper = false;

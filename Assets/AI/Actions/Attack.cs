@@ -61,7 +61,8 @@ public class Attack : RAINAction
 
             Vector3 pos = player.GetComponent<Transform>().position + new Vector3(0, 1, 0); //throw up off the ground
             Vector3 vel = player.GetComponent<Rigidbody>().velocity;
-            Vector3 target = getLeadingPosition(pos, vel, firePoint);
+            Vector3 target = pos;
+            //Vector3 target = getLeadingPosition(pos, vel, firePoint);
 
             GameObject obj = GameObject.Instantiate(projectile);
             obj.GetComponent<Transform>().position = firePoint;

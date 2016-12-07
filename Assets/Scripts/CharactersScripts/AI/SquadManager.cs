@@ -46,6 +46,7 @@ class SquadManager : MonoBehaviour {
     /// <param name="player">The player who was spotted.</param>
     public void AlertAllGuards(GameObject player) {
         foreach (AI guard in guards) {
+            guard.Motor.DefaultSpeed = InitializeGuard.WALK_SPEED * 2;
             if (!(bool)guard.WorkingMemory.GetItem(ALARMED)) {
                 guard.WorkingMemory.SetItem(ALARMED, true);
                 guard.WorkingMemory.SetItem(LAST_SEEN_PLAYER, player.transform.position);
