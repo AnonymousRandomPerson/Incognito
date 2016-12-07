@@ -32,12 +32,16 @@ public class Health : MonoBehaviour {
     /// <summary> The audio source on the player. </summary>
     private AudioSource audioSource;
 
+    /// <summary> The particles emitted when the player takes damage. </summary>
+    private ParticleSystem particles;
+
     /// <summary>
     /// Initializes the object.
     /// </summary>
     private void Start() {
         health = maxHealth;
         audioSource = GetComponent<AudioSource>();
+        particles = GetComponent<ParticleSystem>();
     }
 
     /// <summary>
@@ -52,6 +56,7 @@ public class Health : MonoBehaviour {
                 if (playSound) {
                     audioSource.PlayOneShot(damageSound);
                 }
+                particles.Emit(30);
                 health -= damage;
                 if (health <= 0) {
                     Die();

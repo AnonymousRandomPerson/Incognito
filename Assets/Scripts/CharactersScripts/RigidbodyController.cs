@@ -11,7 +11,6 @@ public class RigidbodyController : MonoBehaviour
     public Footstep rightStep;
     public float gravity = 10.0f;
     public float maxVelocityChange = 10.0f;
-    public bool canJump = true;
     public bool usingFootStepper = true;
     public float maxWalkAngle = 30f;
 
@@ -22,14 +21,10 @@ public class RigidbodyController : MonoBehaviour
     private BoxCollider groundingBox;
     private AudioSource aud;
 
-    private bool swimming;
     public float turnSpeed = 1f;
-    public float swimEnterHeight = 0;
-    public float swimHeightBuffer = 0;
 
     private float speed = 0;
     private float turn = 0;
-    private bool startJump = false;
     private bool startRoll = false;
 
     /// <summary> The character's ragdoll colliders. </summary>
@@ -60,17 +55,7 @@ public class RigidbodyController : MonoBehaviour
 
     void FixedUpdate()
     {
-
-        if (CheckSwimming())
-        {
-            InWater();
-        }
-        else
-        {
-            OnLand();
-        }
-
-        VerifyCorrectState();
+        OnLand();
     }
 
     void OnLand()
@@ -95,16 +80,6 @@ public class RigidbodyController : MonoBehaviour
         if (grounded)
         {
             anim.SetBool("grounded", true);
-
-            // Jump
-            if (canJump)
-            {
-                anim.SetBool("startJump", startJump);
-            }
-            else
-            {
-                anim.SetBool("startJump", false);
-            }
         }
         else
         {
@@ -133,91 +108,6 @@ public class RigidbodyController : MonoBehaviour
         fallTimer -= Time.deltaTime;
     }
 
-    public AudioClip splashSound;
-
-    void InWater()
-    {
-
-        Transform tf = GetComponent<Transform>();
-        if (tf.position.y < swimEnterHeight)
-        {
-            tf.position = new Vector3(tf.position.x, swimEnterHeight, tf.position.z);
-        }
-
-        gameObject.transform.Rotate(0, turn * turnSpeed * Time.deltaTime, 0);
-
-        anim.SetFloat("speed", speed, 0.2f, Time.deltaTime);
-        anim.SetFloat("turn", turn, 0.2f, Time.deltaTime);
-
-    }
-
-    void VerifyCorrectState()
-    {
-        AnimatorStateInfo state = anim.GetCurrentAnimatorStateInfo(0);
-        if (swimming && !(state.IsName("swimming") || state.IsName("treading_water")))
-        {
-            anim.SetTrigger("swimming");
-        }
-        else if (!swimming && (state.IsName("swimming") || state.IsName("treading_water")))
-        {
-            anim.SetTrigger("stopswimming");
-        }
-    }
-
-    bool CheckSwimming()
-    {
-        float height = GetComponent<Transform>().position.y;
-        if (height < swimEnterHeight)
-        {
-            if (!swimming)
-            {
-                if (!aud.isPlaying)
-                {
-                    aud.clip = splashSound;
-                    aud.Play();
-                    aud.volume = 0.2f;
-                }
-
-                swimming = true;
-                anim.SetTrigger("swimming");
-                rb.freezeRotation = true;
-                coll.radius = 1f;
-                coll.height = 2f;
-                coll.center = new Vector3(0, 1, 0);
-            }
-        }
-        else if (height > swimEnterHeight + swimHeightBuffer)
-        {
-            if (swimming)
-            {
-                swimming = false;
-                anim.SetTrigger("stopswimming");
-                rb.constraints = RigidbodyConstraints.None;
-                rb.freezeRotation = true;
-                coll.radius = 0.5f;
-                coll.height = 2f;
-                coll.center = new Vector3(0, 1, 0);
-            }
-        }
-
-        return swimming;
-
-    }
-
-    public AudioClip swimSound;
-
-    public void PlaySwimSound()
-    {
-        if (!(aud.isPlaying && aud.clip == splashSound))
-        {
-            aud.volume = 0.2f;
-            aud.clip = swimSound;
-            aud.Stop();
-            aud.Play();
-        }
-
-    }
-
     void ColliderAdjust()
     {
         AnimatorStateInfo currentAnim = anim.GetCurrentAnimatorStateInfo(0);
@@ -225,11 +115,6 @@ public class RigidbodyController : MonoBehaviour
         {
             coll.center = new Vector3(0, 0.5f, 0);
             coll.height = 1f;
-        }
-        else if (currentAnim.IsName("jump"))
-        {
-            coll.center = new Vector3(0, anim.GetFloat("collYOffset"), 0);
-            coll.height = 2f;
         }
         else
         {
@@ -291,11 +176,6 @@ public class RigidbodyController : MonoBehaviour
             this.turn = turn;
         }
         
-    }
-
-    public void jump(bool jump)
-    {
-        startJump = jump;
     }
 
     public void roll(bool roll)
