@@ -36,3 +36,8 @@ Library/*
 .vs*
 Logs*
 Assets/RAIN/Editor/RAINProjectState.asset*
+Assets/Characters/genSWAT/Textures/*.meta
+Assets/Characters/genSWAT/weaponPack/Textures/*.meta
+Assets/Environment/Military1/camera animation.meta
+Assets/Environment/Military1/Textures1.meta
+Assets/Environment/Military1/Standard Assets/Skyboxes/Textures/Sunny3.meta
