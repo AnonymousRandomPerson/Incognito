@@ -100,6 +100,7 @@ public class menuManager : MonoBehaviour {
         mainmenu_canvas.enabled = true;
         credits_canvas.enabled = false;
         quit_canvas.enabled = false;
+        levels_canvas.enabled = false;
         myEventSystem = EventSystem.current;
         highlighted = 0;
     }
